@@ -1,6 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Sidebar } from "@/components/dashboard-ui/Sidebar"
+import { Header } from "@/components/dashboard-ui/Header"
+import { WelcomeBanner } from "@/components/dashboard-ui/Welcome"
+import { EarningsSection } from "@/components/dashboard-ui/Earning-section"
+import { EarningsChart } from "@/components/dashboard-ui/Earning-chart"
+import { ConnectionStatus } from "@/components/dashboard-ui/Connection"
+import { MobileNav } from "@/components/dashboard-ui/MobieNav"
+import { ReferralCard } from "@/components/dashboard-ui/Referal"
 
 const Dashboard = () => {
     const [profile, setProfile] = useState<any>(null);
@@ -85,12 +93,24 @@ const Dashboard = () => {
     if (!profile) return <div>Loading...</div>;
 
     return (
-        <div>
-            <h1>Welcome {profile.fullName}</h1>
-            <img src={profile.avatar} alt="Profile" />
-            <p>Fitbit ID: {profile.encodedId}</p>
-            <button onClick={handleClick}>Get Sleep Data</button>
-            {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+        <div className="min-h-screen flex flex-col lg:flex-row">
+            <Sidebar />
+            <main className="flex-1 flex flex-col pb-20 lg:pb-0 w-full">
+                <Header />
+                <div className="p-4 space-y-4 flex-1 overflow-auto bg-[#fefdfd]  mx-auto w-full   lg:p-6 lg:space-y-6">
+                    <WelcomeBanner />
+                    <ReferralCard />
+                    <div className="text-3xl font-semibold text-gray-500  px-4">Earnings</div>
+                    <div className="flex flex-col lg:flex-row gap-4 ">
+                        <EarningsSection />
+                        <ConnectionStatus />
+                    </div>
+                    <div className=" lg:block">
+                        <EarningsChart />
+                    </div>
+                </div>
+                <MobileNav />
+            </main>
         </div>
     );
 };

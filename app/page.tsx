@@ -1,7 +1,7 @@
 "use client";
 
-import Navbar from "@/component/Navbar";
-import SignInButton from "@/component/SignInButton";
+import Navbar from "@/components/Navbar";
+import SignInButton from "@/components/SignInButton";
 
 declare global {
   interface Window {
