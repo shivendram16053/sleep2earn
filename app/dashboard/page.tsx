@@ -95,8 +95,10 @@ const Dashboard = () => {
     return (
         <div className="min-h-screen flex flex-col lg:flex-row">
             <Sidebar />
-            <main className="flex-1 flex flex-col pb-20 lg:pb-0 w-full">
+            <main className=" flex flex-col pb-20 lg:pb-0 w-full">
+
                 <Header />
+
                 <div className="p-4 space-y-4 flex-1 overflow-auto   mx-auto w-full   lg:p-6 lg:space-y-6">
                     <WelcomeBanner />
                     <ReferralCard />
