@@ -7,18 +7,66 @@ const Navbar = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [account, setAccount] = useState<string | null>(null);
 
+  const chainId = "984123"; // Forma Testnet Chain ID
+
   const connectKeplr = async () => {
     if (typeof window !== "undefined" && window.keplr) {
       try {
-        const chainId = "cosmoshub-4"; // Replace with your desired chain ID
+        // Suggest the Forma Testnet chain to Keplr
+        await window.keplr.experimentalSuggestChain({
+          chainId: chainId,
+          chainName: "Forma Testnet (Sketchpad-1)",
+          rpc: "https://rpc.sketchpad-1.forma.art",
+          rest: "https://explorer.sketchpad-1.forma.art",
+          stakeCurrency: {
+            coinDenom: "TIA",
+            coinMinimalDenom: "utia",
+            coinDecimals: 6,
+            coinGeckoId: "celestia",
+          },
+          bip44: { coinType: 118 },
+          bech32Config: {
+            bech32PrefixAccAddr: "forma",
+            bech32PrefixAccPub: "formapub",
+            bech32PrefixValAddr: "formavaloper",
+            bech32PrefixValPub: "formavaloperpub",
+            bech32PrefixConsAddr: "formavalcons",
+            bech32PrefixConsPub: "formavalconspub",
+          },
+          currencies: [
+            {
+              coinDenom: "TIA",
+              coinMinimalDenom: "utia",
+              coinDecimals: 6,
+              coinGeckoId: "celestia",
+            },
+          ],
+          feeCurrencies: [
+            {
+              coinDenom: "TIA",
+              coinMinimalDenom: "utia",
+              coinDecimals: 6,
+              coinGeckoId: "celestia",
+              gasPriceStep: {
+                low: 18,
+                average: 20,
+                high: 25,
+              },
+            },
+          ],
+          features: ["stargate", "ibc-transfer", "cosmwasm"],
+        });
+
+        // Enable Forma Testnet on Keplr
         await window.keplr.enable(chainId);
         const key = await window.keplr.getKey(chainId);
+
         if (key && key.bech32Address) {
           setAccount(key.bech32Address);
           setIsConnected(true);
         }
       } catch (error) {
-        console.error("Error enabling Keplr:", error);
+        console.error("Error connecting to Forma Testnet:", error);
       }
     } else {
       alert("Please install the Keplr extension.");
@@ -26,7 +74,6 @@ const Navbar = () => {
   };
 
   const disconnectKeplr = () => {
-    // Simply clear local state to "disconnect"
     setAccount(null);
     setIsConnected(false);
   };
@@ -37,10 +84,10 @@ const Navbar = () => {
       justifyContent: "space-between",
       alignItems: "center",
       padding: "1rem",
-      border: "1px solid #000"
+      borderBottom: "2px solid #000"
     }}>
       <Link href="/">
-        <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>sleep2earn</p>
+        <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Sleep2Earn</p>
       </Link>
 
       <div>
