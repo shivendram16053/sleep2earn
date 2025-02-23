@@ -2,20 +2,53 @@
 
 import { Search } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
-export default function Navbar() {
+const Navbar = () => {
+  const [isConnected, setIsConnected] = useState(false);
+  const [account, setAccount] = useState<string | null>(null);
+
+  const connectKeplr = async () => {
+    if (typeof window !== "undefined" && window.keplr) {
+      try {
+        const chainId = "cosmoshub-4"; // Replace with your desired chain ID
+        await window.keplr.enable(chainId);
+        const key = await window.keplr.getKey(chainId);
+        if (key && key.bech32Address) {
+          setAccount(key.bech32Address);
+          setIsConnected(true);
+        }
+      } catch (error) {
+        console.error("Error enabling Keplr:", error);
+      }
+    } else {
+      alert("Please install the Keplr extension.");
+    }
+  };
+
+  const disconnectKeplr = () => {
+    // Simply clear local state to "disconnect"
+    setAccount(null);
+    setIsConnected(false);
+  };
+
   return (
-    <header className="fixed top-12 left-0 z-50 w-full bg-transparent">
-      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo and Badge */}
-        <div className="flex items-center gap-3">
-          <Link href="/" className="text-xl font-bold text-white uppercase">
-            sleep2earn
-          </Link>
-          <span className="rounded border border-white/20 bg-white/10 px-2 py-0.5 text-xs text-white">
-            BETA ACCESS
-          </span>
-        </div>
+    <nav style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "1rem",
+      border: "1px solid #000"
+    }}>
+      <Link href="/">
+        <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>sleep2earn</p>
+      </Link>
+
+      <div>
+        <Link href="/"><p style={{ margin: "0 1rem" }}>Home</p></Link>
+        <Link href="/gallery"><p style={{ margin: "0 1rem" }}>Gallery</p></Link>
+        <Link href="/trade"><p style={{ margin: "0 1rem" }}>Trade</p></Link>
+      </div>
 
         {/* Navigation Links - Hidden on Small Screens */}
         <div className="hidden md:flex">
