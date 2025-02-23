@@ -9,6 +9,11 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+			"instrument-serif": ["Instrument Serif", "serif"],
+			"instrument-serif-italic": ["Instrument Serif", "serif"],
+			"instrument-sans": ["var(--font-instrument-sans)", "sans-serif"],
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

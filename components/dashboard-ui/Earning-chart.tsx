@@ -2,9 +2,7 @@
 
 import { ArrowUpRight, RefreshCcw } from "lucide-react"
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
-
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 
 const data = [
     { date: "27 Jan", value: 1700 },
@@ -36,13 +34,17 @@ const data = [
 
 export function EarningsChart() {
     return (
-        <Card className="p-4 md:p-6">
+        <div className="bg-black/20 backdrop-blur-sm p-4 md:p-6 rounded-[20px] border border-white/10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                 <div className="flex items-center gap-2">
-                    <ArrowUpRight className="h-5 w-5 text-gray-500" />
-                    <h2 className="text-lg md:text-xl text-gray-500 font-semibold">Earnings Statistics</h2>
+                    <ArrowUpRight className="h-5 w-5 text-white/70" />
+                    <h2 className="text-lg md:text-xl text-white/90 font-semibold">Earnings Statistics</h2>
                 </div>
-                <Button variant="outline" size="sm" className="gap-2">
+                <Button
+                    variant="outline"
+                    size="sm"
+                    className="gap-2 bg-purple-600/50 text-white border-white/10 hover:bg-purple-500/50"
+                >
                     <RefreshCcw className="h-4 w-4" />
                     Refresh
                 </Button>
@@ -55,40 +57,40 @@ export function EarningsChart() {
                             dataKey="date"
                             axisLine={false}
                             tickLine={false}
-                            tick={{ fontSize: 12 }}
+                            tick={{ fontSize: 12, fill: "rgba(255,255,255,0.6)" }}
                             tickMargin={8}
                             interval="preserveStartEnd"
                         />
                         <YAxis
                             axisLine={false}
                             tickLine={false}
-                            tick={{ fontSize: 12 }}
+                            tick={{ fontSize: 12, fill: "rgba(255,255,255,0.6)" }}
                             tickFormatter={(value) => `${value >= 1000 ? (value / 1000).toFixed(1) + "K" : value}`}
                         />
-                        <Bar dataKey="value" fill="#1E3A8A" radius={[4, 4, 4, 4]} maxBarSize={40} />
+                        <Bar dataKey="value" fill="rgba(168,85,247,0.5)" radius={[4, 4, 4, 4]} maxBarSize={40} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
 
             <div className="flex flex-wrap gap-4 mt-6">
                 <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[#1E3A8A]" />
-                    <span className="text-sm text-muted-foreground">Lazy Earnings</span>
+                    <div className="w-3 h-3 rounded-full bg-purple-500" />
+                    <span className="text-sm text-white/60">Lazy Earnings</span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full border border-[#1E3A8A]" />
-                    <span className="text-sm text-muted-foreground">Referrals</span>
+                    <div className="w-3 h-3 rounded-full border border-purple-500" />
+                    <span className="text-sm text-white/60">Referrals</span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[#1E3A8A]" />
-                    <span className="text-sm text-muted-foreground">Rank Achievements</span>
+                    <div className="w-3 h-3 rounded-full bg-purple-500" />
+                    <span className="text-sm text-white/60">Rank Achievements</span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full border border-[#1E3A8A]" />
-                    <span className="text-sm text-muted-foreground">Referral Bonus</span>
+                    <div className="w-3 h-3 rounded-full border border-purple-500" />
+                    <span className="text-sm text-white/60">Referral Bonus</span>
                 </div>
             </div>
-        </Card>
+        </div>
     )
 }
 

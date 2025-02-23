@@ -97,10 +97,10 @@ const Dashboard = () => {
             <Sidebar />
             <main className="flex-1 flex flex-col pb-20 lg:pb-0 w-full">
                 <Header />
-                <div className="p-4 space-y-4 flex-1 overflow-auto bg-[#fefdfd]  mx-auto w-full   lg:p-6 lg:space-y-6">
+                <div className="p-4 space-y-4 flex-1 overflow-auto   mx-auto w-full   lg:p-6 lg:space-y-6">
                     <WelcomeBanner />
                     <ReferralCard />
-                    <div className="text-3xl font-semibold text-gray-500  px-4">Earnings</div>
+                    <div className="text-3xl font-semibold text-gray-100  px-4">Earnings</div>
                     <div className="flex flex-col lg:flex-row gap-4 ">
                         <EarningsSection />
                         <ConnectionStatus />

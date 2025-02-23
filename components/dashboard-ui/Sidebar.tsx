@@ -33,19 +33,19 @@ export function Sidebar() {
             </div>
             <div
                 className={cn(
-                    "fixed inset-y-0 left-0 z-30  w-80 bg-gray-50 border-r transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:flex lg:flex-col",
+                    "fixed inset-y-0 left-0 z-30  w-80  border-r-2 border-[#2b1847] transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-auto lg:flex lg:flex-col",
                     isOpen ? "translate-x-0" : "-translate-x-full",
                 )}
             >
                 <div className="py-6 pr-6 ">
                     <div className=" flex items-center justify-center   ">
-                        <Image
+                        {/* <Image
                             src="/112255.png"
                             alt="Sloth Logo"
                             width={220}
                             height={32}
 
-                        />
+                        /> */}
                     </div>
                     <nav className="space-y-4 ">
                         {navigation.map((item) => (
@@ -54,7 +54,7 @@ export function Sidebar() {
                                 href={item.href}
                                 className={cn(
                                     "group flex items-center px-3 py-4 text-xl font-semibold rounded-r-xl",
-                                    item.current ? "bg-[#1E3A8A] text-white border-l-none border-b-[6px] border-gray-400  border-r-[1px] " : "text-black hover:bg-secondary",
+                                    item.current ? "bg-[#3c1958] text-white border-l-none border-b-[6px] border-[#c084fc]  border-r-[1px] " : "text-white hover:bg-[#492969]",
                                 )}
                             >
                                 <item.icon className="mr-3 h-5 w-5 flex-shrink-0" />
@@ -73,7 +73,7 @@ export function Sidebar() {
                         ))}
                     </nav>
                 </div>
-                <div className="mt-auto p-4 border-t bg-[#1E3A8A] text-white mx-4 rounded-xl cursor-pointer border-b-[6px] hover:border-gray-600 duration-200">
+                <div className="mt-auto p-4 border-t bg-[#5a2f85] text-white mx-4 rounded-xl cursor-pointer border-b-[6px] hover:border-[#c084fc] duration-200">
                     <div className="flex items-center gap-2 px-3 py-2 bg-success-background rounded-lg">
                         <MonitorSmartphone className="h-8 w-8" /> {/* Play Store icon */}
                         <div className="flex-1">
@@ -82,7 +82,7 @@ export function Sidebar() {
                     </div>
                 </div>
                 <div className="  px-4 py-8">
-                    <button className="flex items-center w-full gap-2 px-3 py-2  text-[#1E3A8A] rounded-lg">
+                    <button className="flex items-center w-full gap-2 px-3 py-2  text-white rounded-lg">
                         <LogOut className="h-8 w-8" /> {/* Log Out icon */}
                         <span className="text-lg font-medium">Log Out</span>
                     </button>
