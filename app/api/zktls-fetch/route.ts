@@ -39,11 +39,17 @@ export async function GET(req: NextRequest) {
           }
         );
 
-        const sleepData = fitbitResponse.data;
-        const sleepDuration = sleepData?.summary?.totalMinutesAsleep || 0;
+        const sleepData = fitbitResponse.data.sleep?.[0] || {};
+        const sleepDuration = sleepData?.duration
+          ? sleepData.duration / 60000
+          : 0; // Convert ms to minutes
+        const sleepEfficiency = sleepData?.efficiency || 0;
 
-        // 4️⃣ Generate ZKP & reward
-        const { proof, reward, isValid } = generateZKP(sleepDuration);
+        // 4️⃣ Generate ZKP & reward (considering efficiency)
+        const { proof, reward, isValid } = generateZKP(
+          sleepDuration,
+          sleepEfficiency
+        );
 
         // 5️⃣ Store proof & reward in Sleep model
         await prisma.sleep.create({
@@ -84,59 +90,71 @@ export async function GET(req: NextRequest) {
 
 // 🔹 Function to Update Total Rewards
 async function updateTotalReward(userId: string, reward: number) {
-  // Find existing total rewards
   const totalRewardEntry = await prisma.totalReward.findUnique({
     where: { id: userId },
   });
 
   if (totalRewardEntry) {
-    // If entry exists, update it
     await prisma.totalReward.update({
       where: { id: userId },
       data: { totalReward: totalRewardEntry.totalReward + reward },
     });
   } else {
-    // If no entry, create a new one
     await prisma.totalReward.create({
       data: { userId, totalReward: reward },
     });
   }
 }
 
-// 🔹 Mock zkTLS-like verification function
-function generateZKP(sleepDuration: number) {
+// 🔹 zkTLS-like verification function (considering efficiency)
+function generateZKP(sleepDuration: number, sleepEfficiency: number) {
   let proof = "";
   let reward = 0;
   let isValid = false;
 
+  // Base reward based on sleep duration
   if (sleepDuration >= 510) {
-    proof = "Proof: User slept ≥ 8.5 hrs";
+    proof = "Proof: User got Very High sleep quality"; //Proof: User slept ≥ 8.5 hrs
     reward = 90;
     isValid = true;
   } else if (sleepDuration >= 480) {
-    proof = "Proof: User slept ≥ 8 hrs";
+    proof = "Proof: User got High sleep quality"; //Proof: User slept ≥ 8 hrs
     reward = 70;
     isValid = true;
   } else if (sleepDuration >= 450) {
-    proof = "Proof: User slept ≥ 7.5 hrs";
+    proof = "Proof: User got Very good sleep quality"; // Proof: User slept ≥ 7.5 hrs
     reward = 60;
     isValid = true;
   } else if (sleepDuration >= 420) {
-    proof = "Proof: User slept ≥ 7 hrs";
+    proof = "Proof: User got Good sleep quality"; // Proof: User slept ≥ 7 hrs
     reward = 50;
     isValid = true;
   } else if (sleepDuration >= 390) {
-    proof = "Proof: User slept ≥ 6.5 hrs";
+    proof = "Proof: User got very average sleep quality"; // Proof: User slept ≥ 6.5 hrs
     reward = 40;
     isValid = true;
   } else if (sleepDuration >= 360) {
-    proof = "Proof: User slept ≥ 6 hrs";
+    proof = "Proof: User got low sleep quality"; // Proof: User slept ≥ 6 hrs
     reward = 30;
     isValid = true;
   } else {
     proof = "Proof: Sleep duration < 6 hrs (No reward)";
     reward = 0;
     isValid = false;
+  }
+
+  // Additional reward based on efficiency
+  if (isValid) {
+    if (sleepEfficiency >= 95) {
+      reward += 20; // High efficiency bonus
+      proof += " + High Efficiency Bonus";
+    } else if (sleepEfficiency >= 90) {
+      reward += 10; // Medium efficiency bonus
+      proof += " + Medium Efficiency Bonus ";
+    } else {
+      reward += 0; // Low efficiency bonus
+      proof += " + Low Efficiency Bonus";
+    }
   }
 
   return { proof, reward, isValid };

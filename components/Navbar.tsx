@@ -5,32 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const Navbar = () => {
-  const [isConnected, setIsConnected] = useState(false);
-  const [account, setAccount] = useState<string | null>(null);
-
-  const connectKeplr = async () => {
-    if (typeof window !== "undefined" && window.keplr) {
-      try {
-        const chainId = "cosmoshub-4"; // Replace with your desired chain ID
-        await window.keplr.enable(chainId);
-        const key = await window.keplr.getKey(chainId);
-        if (key && key.bech32Address) {
-          setAccount(key.bech32Address);
-          setIsConnected(true);
-        }
-      } catch (error) {
-        console.error("Error enabling Keplr:", error);
-      }
-    } else {
-      alert("Please install the Keplr extension.");
-    }
-  };
-
-  const disconnectKeplr = () => {
-    // Simply clear local state to "disconnect"
-    setAccount(null);
-    setIsConnected(false);
-  };
+  
 
   return (
     <header className=" w-full bg-transparent">
