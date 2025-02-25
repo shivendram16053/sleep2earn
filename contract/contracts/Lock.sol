@@ -15,14 +15,23 @@ contract Sleep2EarnToken is ERC20, Ownable {
         uint256 startTime;
         uint256 duration;
         bool claimed;
+        bool unstaked;
+        uint256 unstakeTime;
     }
 
-    mapping(address => Stake) public stakes;
+    struct Claim {
+        uint256 amount;
+        uint256 claimedAt;
+    }
+
+    mapping(address => Stake[]) public stakes;
+    mapping(address => Claim[]) public claimHistory;
 
     event RewardTransferred(address indexed user, uint256 amount);
     event TokenRedeemed(address indexed user, uint256 amountBurned, uint256 feePaid);
     event TokensStaked(address indexed user, uint256 amount, uint256 duration);
-    event StakeClaimed(address indexed user, uint256 reward, uint256 amount);
+    event StakeClaimed(address indexed user, uint256 reward, uint256 amount, uint256 claimedAt);
+    event TokensUnstaked(address indexed user, uint256 amount, uint256 penalty, uint256 unstakeTime);
 
     constructor(address _feeCollector) ERC20("Sleep2Earn Token", "SLEEP") Ownable(msg.sender) {
         require(_feeCollector != address(0), "Invalid fee collector");
@@ -54,34 +63,21 @@ contract Sleep2EarnToken is ERC20, Ownable {
         emit TokenRedeemed(msg.sender, amount, feeAmount);
     }
 
-    function setBaseRedemptionFee(uint256 newFee) external onlyOwner {
-        require(newFee <= 100, "Fee too high"); // Max 100%
-        baseRedemptionFee = newFee;
-    }
-
-    function setMinRedemptionFee(uint256 newMinFee) external onlyOwner {
-        minRedemptionFee = newMinFee;
-    }
-
-    function setFeeCollector(address newCollector) external onlyOwner {
-        require(newCollector != address(0), "Invalid address");
-        feeCollector = newCollector;
-    }
-
     function stakeTokens(uint256 amount, uint256 duration) external {
         require(amount > 0, "Amount must be greater than zero");
         require(duration == 30 days || duration == 90 days || duration == 180 days, "Invalid staking duration");
         require(balanceOf(msg.sender) >= amount, "Insufficient balance");
-        require(stakes[msg.sender].amount == 0, "Already staking");
 
         _transfer(msg.sender, address(this), amount);
-        stakes[msg.sender] = Stake(amount, block.timestamp, duration, false);
+        stakes[msg.sender].push(Stake(amount, block.timestamp, duration, false, false, 0));
 
         emit TokensStaked(msg.sender, amount, duration);
     }
 
-    function claimStake() external {
-        Stake storage userStake = stakes[msg.sender];
+    function claimStake(uint256 index) external {
+        require(index < stakes[msg.sender].length, "Invalid stake index");
+        Stake storage userStake = stakes[msg.sender][index];
+
         require(userStake.amount > 0, "No active stake");
         require(block.timestamp >= userStake.startTime + userStake.duration, "Staking period not yet over");
         require(!userStake.claimed, "Stake already claimed");
@@ -96,17 +92,74 @@ contract Sleep2EarnToken is ERC20, Ownable {
         }
 
         uint256 rewardAmount = (userStake.amount * rewardMultiplier) / 100;
-
-        // Ensure the contract has enough tokens to pay rewards
         require(balanceOf(address(this)) >= rewardAmount, "Contract lacks funds for rewards");
 
         _transfer(address(this), msg.sender, rewardAmount);
-
         userStake.claimed = true;
-        emit StakeClaimed(msg.sender, rewardAmount, userStake.amount);
+
+        // Store claim history
+        claimHistory[msg.sender].push(Claim(rewardAmount, block.timestamp));
+
+        emit StakeClaimed(msg.sender, rewardAmount, userStake.amount, block.timestamp);
     }
 
-    // Mint function to top up contract balance for staking rewards
+    function unstakeTokens(uint256 index) external {
+        require(index < stakes[msg.sender].length, "Invalid stake index");
+        Stake storage userStake = stakes[msg.sender][index];
+
+        require(userStake.amount > 0, "No active stake");
+        require(!userStake.claimed, "Already claimed");
+        require(!userStake.unstaked, "Already unstaked");
+
+        uint256 elapsedTime = block.timestamp - userStake.startTime;
+        uint256 penaltyPercent;
+
+        if (elapsedTime < 30 days) {
+            penaltyPercent = 30; // 30% penalty if unstaked before 30 days
+        } else if (elapsedTime < 90 days) {
+            penaltyPercent = 20; // 20% penalty if unstaked before 90 days
+        } else if (elapsedTime < 180 days) {
+            penaltyPercent = 10; // 10% penalty if unstaked before 180 days
+        } else {
+            penaltyPercent = 0; // No penalty if fully staked
+        }
+
+        uint256 penalty = (userStake.amount * penaltyPercent) / 100;
+        uint256 refundAmount = userStake.amount - penalty;
+
+        require(balanceOf(address(this)) >= refundAmount, "Insufficient contract balance");
+
+        _transfer(address(this), msg.sender, refundAmount);
+        _transfer(address(this), feeCollector, penalty);
+
+        userStake.unstaked = true;
+        userStake.unstakeTime = block.timestamp;
+
+        emit TokensUnstaked(msg.sender, refundAmount, penalty, block.timestamp);
+    }
+
+    function getClaimHistory(address user) external view returns (Claim[] memory) {
+        return claimHistory[user];
+    }
+
+    function getStakingHistory(address user) external view returns (Stake[] memory) {
+        return stakes[user];
+    }
+
+    function setBaseRedemptionFee(uint256 newFee) external onlyOwner {
+        require(newFee <= 100, "Fee too high");
+        baseRedemptionFee = newFee;
+    }
+
+    function setMinRedemptionFee(uint256 newMinFee) external onlyOwner {
+        minRedemptionFee = newMinFee;
+    }
+
+    function setFeeCollector(address newCollector) external onlyOwner {
+        require(newCollector != address(0), "Invalid address");
+        feeCollector = newCollector;
+    }
+
     function mint(uint256 amount) external onlyOwner {
         _mint(address(this), amount);
     }

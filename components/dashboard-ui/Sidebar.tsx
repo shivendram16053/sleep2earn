@@ -10,7 +10,7 @@ const navigation = [
     { name: "Dashboard", icon: LayoutGrid, href: "#", current: true },
     { name: "Referral Program", icon: Gift, href: "#" },
     { name: "Rewards", icon: Gift, href: "/claim-rewards" },
-    { name: "Store", icon: ShoppingBag, href: "#", isNew: true },
+    { name: "Store", icon: ShoppingBag, href: "/redeem", isNew: true },
 ]
 
 export function Sidebar() {
