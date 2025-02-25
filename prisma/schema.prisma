@@ -4,32 +4,54 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = "mongodb+srv://sleep2earn:sleeptoearn%402025@c1-sleep2earn.gtamw.mongodb.net/sleep2earn?retryWrites=true&w=majority&appName=c1-sleep2earn"
 }
 
 model User {
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  email         String  @unique
-  walletAddress String  @unique
-  sleep         sleep[]
+  email         String? @unique
+  walletAddress String? @unique
+  fitbitId      String  @unique
+  accessToken   String
+  refreshToken  String
+  sleepData     Sleep[]
+  createdAt     DateTime @default(now())
+  totalRewards  TotalReward[]
 }
 
-model sleep {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  summary       Summary[]
-  minutesAsleep Int
-  minutesAwake  Int
-  timeInBed     Int
-  userId        String?   @db.ObjectId
-  User          User?     @relation(fields: [userId], references: [id])
+model Sleep {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  date      String
+  zkProof   String
+  reward    Int
+  isValid   Boolean
+  userId    String  @db.ObjectId
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Summary {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  deep    Int
-  light   Int
-  rem     Int
-  wake    Int
-  sleepId String @db.ObjectId
-  Sleep   sleep  @relation(fields: [sleepId], references: [id])
+model TotalReward {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  totalReward Int
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
 }
+
+// model sleep {
+//   id            String    @id @default(auto()) @map("_id") @db.ObjectId
+//   summary       Summary[]
+//   minutesAsleep Int
+//   minutesAwake  Int
+//   timeInBed     Int
+//   userId        String?   @db.ObjectId
+//   User          User?     @relation(fields: [userId], references: [id])
+// }
+
+// model Summary {
+//   id      String @id @default(auto()) @map("_id") @db.ObjectId
+//   deep    Int
+//   light   Int
+//   rem     Int
+//   wake    Int
+//   sleepId String @db.ObjectId
+//   Sleep   sleep  @relation(fields: [sleepId], references: [id])
+// }

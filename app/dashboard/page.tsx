@@ -98,6 +98,7 @@ const Dashboard = () => {
             <main className=" flex flex-col pb-20 lg:pb-0 w-full">
 
                 <Header />
+                <button onClick={handleClick}>Fetch Sleep Data</button>
 
                 <div className="p-4 space-y-4 flex-1 overflow-auto   mx-auto w-full   lg:p-6 lg:space-y-6">
                     <WelcomeBanner />
