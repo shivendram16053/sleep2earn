@@ -1,32 +1,81 @@
-"use client"
+"use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+declare global {
+    interface Window {
+        keplr?: any;
+        ethereum?: any;
+    }
+}
 
 export function Header() {
     const [isConnected, setIsConnected] = useState(false);
     const [account, setAccount] = useState<string | null>(null);
 
-    const connectKeplr = async () => {
-        if (typeof window !== "undefined" && window.keplr) {
+    // Forma Testnet Configuration
+    const FORMA_CHAIN_ID = "984123";
+    const FORMA_RPC_URL = "https://rpc.sketchpad-1.forma.art";
+
+    // 🔄 Restore connection on page refresh
+    useEffect(() => {
+        const storedAccount = localStorage.getItem("address");
+        if (storedAccount) {
+            setAccount(storedAccount);
+            setIsConnected(true);
+        }
+    }, []);
+
+    // 🔵 Connect to MetaMask (Forma Testnet)
+    const connectMetaMask = async () => {
+        if (typeof window !== "undefined" && window.ethereum) {
             try {
-                const chainId = "cosmoshub-4"; // Replace with your desired chain ID
-                await window.keplr.enable(chainId);
-                const key = await window.keplr.getKey(chainId);
-                if (key && key.bech32Address) {
-                    setAccount(key.bech32Address);
+                const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+                const chainId = await window.ethereum.request({ method: "eth_chainId" });
+
+                // Convert chain ID to decimal & check if it's Forma Testnet
+                if (parseInt(chainId, 16) !== Number(FORMA_CHAIN_ID)) {
+                    try {
+                        await window.ethereum.request({
+                            method: "wallet_addEthereumChain",
+                            params: [
+                                {
+                                    chainId: "0x" + Number(FORMA_CHAIN_ID).toString(16), // Convert to hex
+                                    chainName: "Forma Testnet (Sketchpad-1)",
+                                    nativeCurrency: {
+                                        name: "TIA",
+                                        symbol: "TIA",
+                                        decimals: 18,
+                                    },
+                                    rpcUrls: [FORMA_RPC_URL],
+                                    blockExplorerUrls: ["https://explorer.sketchpad-1.forma.art/"],
+                                },
+                            ],
+                        });
+                    } catch (error) {
+                        console.error("Error adding Forma Testnet:", error);
+                        return;
+                    }
+                }
+
+                if (accounts.length > 0) {
+                    setAccount(accounts[0]);
+                    localStorage.setItem("address", accounts[0]);
                     setIsConnected(true);
                 }
             } catch (error) {
-                console.error("Error enabling Keplr:", error);
+                console.error("Error connecting to MetaMask:", error);
             }
         } else {
-            alert("Please install the Keplr extension.");
+            alert("Please install MetaMask.");
         }
     };
 
-    const disconnectKeplr = () => {
+    // ❌ Disconnect Wallet
+    const disconnectWallet = () => {
         setAccount(null);
+        localStorage.removeItem("address");
         setIsConnected(false);
     };
 
@@ -37,21 +86,25 @@ export function Header() {
                 <div className="flex items-center gap-4">
                     {isConnected ? (
                         <div className="flex items-center gap-3">
-                            <p className="text-white/80 text-sm">{account?.slice(0, 6)}...{account?.slice(-4)}</p>
+                            <p className="text-white/80 text-sm">
+                                {account?.slice(0, 6)}...{account?.slice(-4)}
+                            </p>
                             <Button
                                 className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg transition-all"
-                                onClick={disconnectKeplr}
+                                onClick={disconnectWallet}
                             >
                                 Disconnect
                             </Button>
                         </div>
                     ) : (
-                        <Button
-                            className="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg transition-all"
-                            onClick={connectKeplr}
-                        >
-                            Connect Wallet
-                        </Button>
+                        <div className="flex gap-2">
+                            <Button
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition-all"
+                                onClick={connectMetaMask}
+                            >
+                                Connect MetaMask (Forma)
+                            </Button>
+                        </div>
                     )}
                     <Avatar>
                         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />

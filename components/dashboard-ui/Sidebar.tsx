@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 const navigation = [
     { name: "Dashboard", icon: LayoutGrid, href: "#", current: true },
     { name: "Referral Program", icon: Gift, href: "#" },
-    { name: "Rewards", icon: Gift, href: "#" },
+    { name: "Rewards", icon: Gift, href: "/claim-rewards" },
     { name: "Store", icon: ShoppingBag, href: "#", isNew: true },
 ]
 
