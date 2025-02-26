@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
   redirectUrl.searchParams.append("response_type", "code");
   redirectUrl.searchParams.append("code_challenge", codeChallenge);
   redirectUrl.searchParams.append("code_challenge_method", "S256");
-  redirectUrl.searchParams.append("scope", "activity profile sleep");
+  redirectUrl.searchParams.append("scope", "sleep");
 
   const response = NextResponse.redirect(redirectUrl.toString());
   response.cookies.set("code_verifier", codeVerifier, {
