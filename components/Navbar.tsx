@@ -1,17 +1,22 @@
 "use client";
 
 import { Search } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 const Navbar = () => {
-  
-
   return (
-    <header className=" w-full bg-transparent">
+    <header className="w-full bg-transparent">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo and Badge */}
         <div className="flex items-center gap-3">
+          <img
+            src="/logo.png"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
           <Link href="/" className="text-xl font-bold text-white uppercase">
             sleep2earn
           </Link>
@@ -43,10 +48,7 @@ const Navbar = () => {
         </div>
       </nav>
     </header>
-
-
-
   );
-}
+};
 
 export default Navbar;
