@@ -2,7 +2,6 @@
 
 import Homepage from "@/components/Homepage";
 import Navbar from "@/components/Navbar";
-import SignInButton from "@/components/SignInButton";
 import { Particles } from "@/components/magicui/particles";
 
 declare global {
@@ -13,8 +12,14 @@ declare global {
 
 export default function Home() {
   return (
-    <div className="relative flex flex-col items-center min-h-screen p-8 pb-20 sm:p-20 font-instrument-sans ">
-      <Particles className="absolute inset-0 z-0" quantity={100} ease={80} color={"#ffffff"} refresh />
+    <div className="relative flex flex-col items-center min-h-screen p-8 pb-20 sm:p-8 font-instrument-sans ">
+      <Particles
+        className="absolute inset-0 z-0"
+        quantity={100}
+        ease={80}
+        color={"#ffffff"}
+        refresh
+      />
 
       {/* Navbar */}
       <div className="w-full z-10 ">
