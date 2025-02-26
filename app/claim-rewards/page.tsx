@@ -192,7 +192,7 @@ const Rewards = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-gray-900 text-white">
+    <div className="min-h-screen flex flex-col lg:flex-row  text-white">
       <Sidebar />
       <main className="flex flex-col w-full px-6 py-6 lg:px-12">
         <Header />

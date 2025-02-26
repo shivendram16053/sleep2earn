@@ -10,7 +10,11 @@ declare global {
     }
 }
 
-export function Header() {
+interface HeaderProps {
+    userid: string;
+}
+
+export function Header({ userid }: HeaderProps) {
     const [isConnected, setIsConnected] = useState(false);
     const [account, setAccount] = useState<string | null>(null);
 
@@ -82,7 +86,7 @@ export function Header() {
     return (
         <div className="border-b border-white/10 bg-gray-900/50 backdrop-blur-md">
             <div className="flex items-center justify-between p-4">
-                <p className="font-bold text-xl text-white/90">Hello Rajesh</p>
+                <p className="font-bold text-xl text-white/90">Hello {userid}</p>
                 <div className="flex items-center gap-4">
                     {isConnected ? (
                         <div className="flex items-center gap-3">
