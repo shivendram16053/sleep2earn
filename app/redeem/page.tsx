@@ -6,6 +6,7 @@ import { Header } from "@/components/dashboard-ui/Header";
 import { MobileNav } from "@/components/dashboard-ui/MobieNav";
 import { Button } from "@/components/ui/button";
 import { getContract } from "@/utils/contract";
+import axios from "axios";
 
 const voucherCategories = [
   {
@@ -79,11 +80,21 @@ const Redeem = () => {
       await tx.wait();
 
       // Send email to backend (optional)
-    //   await axios.post("/api/sendEmail", {
-    //     email,
-    //     voucher: selectedVoucher.value,
-    //     sleepAmount: selectedVoucher.sleepAmount,
-    //   });
+      const emailResponse = await fetch("/api/sendEmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          voucher: selectedVoucher.value,
+          sleepAmount: selectedVoucher.sleepAmount,
+        }),
+      });
+
+      if (!emailResponse.ok) {
+        throw new Error("Failed to send email.");
+      }
 
       setSuccessMessage(
         `Successfully redeemed ${selectedVoucher.sleepAmount} SLEEP for a ${selectedVoucher.value} voucher.`
@@ -110,7 +121,10 @@ const Redeem = () => {
         <div className="flex flex-col gap-6 mt-6">
           {/* Voucher Categories */}
           {voucherCategories.map((category) => (
-            <div key={category.name} className="bg-gray-800 p-6 rounded-lg shadow-md">
+            <div
+              key={category.name}
+              className="bg-gray-800 p-6 rounded-lg shadow-md"
+            >
               <h2 className="text-2xl font-bold mb-4">{category.name}</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {category.vouchers.map((voucher) => (
@@ -120,9 +134,7 @@ const Redeem = () => {
                     onClick={() => setSelectedVoucher(voucher)}
                   >
                     <h3 className="text-xl font-semibold">{voucher.value}</h3>
-                    <p className="text-gray-400">
-                      {voucher.sleepAmount} SLEEP
-                    </p>
+                    <p className="text-gray-400">{voucher.sleepAmount} SLEEP</p>
                   </div>
                 ))}
               </div>
