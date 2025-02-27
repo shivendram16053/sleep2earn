@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { LayoutGrid, Gift, ShoppingBag, MonitorSmartphone, Menu, X, LogOut } from "lucide-react"
+import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -22,7 +23,7 @@ export function Sidebar() {
             <div className="hidden fixed top-0 left-0 right-0 z-20 bg-background border-b px-4 py-3  justify-between items-center">
                 <div className="flex items-center justify-center gap-4">
                     <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" className="rounded-full" />
+                        <AvatarImage src="https://www.freepik.com/free-vector/cute-sloth-sleeping-cartoon-vector-icon-illustration-animal-nature-icon-concept-isolated-premium_33834531.htm#fromView=search&page=1&position=49&uuid=9351ff54-10b5-4185-80d2-50bc827b8c60&query=sloth" alt="@shadcn" className="rounded-full" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <p className="font-bold text-xl text-[#1E3A8A] dark:text-gray-500">Hello Sloths</p>
@@ -37,7 +38,23 @@ export function Sidebar() {
                     isOpen ? "translate-x-0" : "-translate-x-full",
                 )}
             >
+                <div className="flex items-center my-6 gap-3 flex-col">
+                    <img
+                        src="/logo.png"
+                        alt="Logo"
+                        width={40}
+                        height={40}
+                        className="rounded-full animate-bounce "
+                    />
+                    <Link href="/" className="text-xl font-bold text-white uppercase">
+                        sleep2earn
+                    </Link>
+                    <span className="rounded border border-white/20 bg-white/10 px-2 py-0.5 text-xs text-white">
+                        BETA ACCESS
+                    </span>
+                </div>
                 <div className="py-6 pr-6">
+
                     <nav className="space-y-4">
                         {navigation.map((item) => {
                             const isActive = pathname === item.href

@@ -8,25 +8,7 @@ import { Button } from "@/components/ui/button";
 import { getContract } from "@/utils/contract";
 import axios from "axios";
 
-const voucherCategories = [
-  {
-    name: "Amazon",
-    vouchers: [
-      { id: 1, value: "$5", sleepAmount: "50" },
-      { id: 2, value: "$10", sleepAmount: "100" },
-      { id: 3, value: "$25", sleepAmount: "250" },
-    ],
-  },
-  {
-    name: "Flipkart",
-    vouchers: [
-      { id: 4, value: "$5", sleepAmount: "50" },
-      { id: 5, value: "$10", sleepAmount: "100" },
-      { id: 6, value: "$25", sleepAmount: "250" },
-    ],
-  },
-  // Add more categories as needed
-];
+
 
 const Redeem = () => {
   const [selectedVoucher, setSelectedVoucher] = useState<{
@@ -41,7 +23,7 @@ const Redeem = () => {
   const [fitbitID, setFitbitID] = useState<string>();
 
   useEffect(() => {
-    const fitbitID = localStorage.getItem("fitbitID");
+    const fitbitID = localStorage.getItem("user_id");
 
     if (!fitbitID) throw new Error("No ID found");
     setFitbitID(fitbitID);
@@ -120,34 +102,207 @@ const Redeem = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row bg-gray-900 text-white">
+    <div className="min-h-screen flex flex-col lg:flex-row  text-white">
       <Sidebar />
-      <main className="flex flex-col w-full px-6 py-6 lg:px-12">
-        <Header userid={fitbitID||""} />
+      <main className="flex flex-col pb-20 lg:pb-0 w-full ">
+        <Header userid={fitbitID} />
         <MobileNav />
 
-        <div className="flex flex-col gap-6 mt-6">
+        <h1 className="text-3xl font-bold pt-4 px-12 my-4 md:my-0 md:pt-8 text-left"> Redeem your gift cards</h1>
+        <div className="md:p-12 p-6 flex  flex-wrap gap-6  justify-between">
           {/* Voucher Categories */}
-          {voucherCategories.map((category) => (
-            <div
-              key={category.name}
-              className="bg-gray-800 p-6 rounded-lg shadow-md"
-            >
-              <h2 className="text-2xl font-bold mb-4">{category.name}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {category.vouchers.map((voucher) => (
-                  <div
-                    key={voucher.id}
-                    className="bg-gray-700 p-4 rounded-lg cursor-pointer hover:bg-gray-600"
-                    onClick={() => setSelectedVoucher(voucher)}
-                  >
-                    <h3 className="text-xl font-semibold">{voucher.value}</h3>
-                    <p className="text-gray-400">{voucher.sleepAmount} SLEEP</p>
-                  </div>
-                ))}
+          <div className=" border-2 border-purple-400 p-6 rounded-lg shadow-md bg-purple-950 w-full md:w-1/5">
+            <div className="flex items-center justify-center rounded-xl">
+              <img src="amazon.png" alt="amazon" className="w-36 h-36" />
+            </div>
+            <h2 className="text-2xl font-bold my-4">Amazon</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 1,
+                    value: "$5",
+                    sleepAmount: "500",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$5</h3>
+                <p className="">500 SLEEP</p>
+              </div>
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 2,
+                    value: "$10",
+                    sleepAmount: "1000",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$10</h3>
+                <p className=" ">1000 SLEEP</p>
+              </div>
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 3,
+                    value: "$20",
+                    sleepAmount: "2000",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$20</h3>
+                <p className="">2000 SLEEP</p>
               </div>
             </div>
-          ))}
+          </div>
+          <div className=" border-2 border-purple-400 p-6 rounded-lg shadow-md bg-purple-950 w-full md:w-1/5">
+            <div className=" flex items-center justify-center">
+              <img src="google.png" alt="amazon" className="w-36 h-36" />
+            </div>
+            <h2 className="text-2xl font-bold my-4">Google Play</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 1,
+                    value: "$5",
+                    sleepAmount: "500",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$5</h3>
+                <p className="">500 SLEEP</p>
+              </div>
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 2,
+                    value: "$10",
+                    sleepAmount: "1000",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$10</h3>
+                <p className=" ">1000 SLEEP</p>
+              </div>
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 3,
+                    value: "$20",
+                    sleepAmount: "2000",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$20</h3>
+                <p className="">2000 SLEEP</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div className=" border-2 border-purple-400 p-6 rounded-lg shadow-md bg-purple-950 w-full md:w-1/5">
+            <div className=" flex items-center justify-center">
+              <img src="steam.png" alt="amazon" className="w-36 h-36" />
+            </div>
+            <h2 className="text-2xl font-bold my-4">Steam</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 1,
+                    value: "$5",
+                    sleepAmount: "500",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$5</h3>
+                <p className="">500 SLEEP</p>
+              </div>
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 2,
+                    value: "$10",
+                    sleepAmount: "1000",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$10</h3>
+                <p className=" ">1000 SLEEP</p>
+              </div>
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 3,
+                    value: "$20",
+                    sleepAmount: "2000",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$20</h3>
+                <p className="">2000 SLEEP</p>
+              </div>
+            </div>
+          </div>
+
+          <div className=" border-2 border-purple-400 p-6 rounded-lg shadow-md bg-purple-950 w-full md:w-1/5">
+            <div className=" flex items-center justify-center">
+              <img src="microsoft.png" alt="amazon" className="w-36 h-36" />
+            </div>
+            <h2 className="text-2xl font-bold my-4">Microsoft</h2>
+            <div className="grid grid-cols-1 gap-4">
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 1,
+                    value: "$5",
+                    sleepAmount: "500",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$5</h3>
+                <p className="">500 SLEEP</p>
+              </div>
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 2,
+                    value: "$10",
+                    sleepAmount: "1000",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$10</h3>
+                <p className=" ">1000 SLEEP</p>
+              </div>
+              <div
+                className="bg-purple-500 bg-opacity-40 text-gray-400 hover:text-slate-50 p-4 rounded-lg cursor-pointer hover:bg-purple-400 hover:bg-opacity-100"
+                onClick={() =>
+                  setSelectedVoucher({
+                    id: 3,
+                    value: "$20",
+                    sleepAmount: "2000",
+                  })
+                }
+              >
+                <h3 className="text-xl font-semibold text-white">$20</h3>
+                <p className="">2000 SLEEP</p>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* Email Popup */}

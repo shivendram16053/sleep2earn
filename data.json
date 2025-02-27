@@ -1,0 +1,86 @@
+[
+    {
+        "_id": {
+            "$oid": "67bef7bb86eebc85bfc75ba2"
+        },
+        "date": "2025-02-18",
+        "zkProof": "Proof: Sleep duration < 6 hrs (No reward)",
+        "reward": {
+            "$numberLong": "30"
+        },
+        "isValid": true,
+        "userId": {
+            "$oid": "67becbbe2a118861d481d9cf"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67bef7bb86eebc85bfc75ca3"
+        },
+        "date": "2025-02-19",
+        "zkProof": "Proof: Sleep duration < 6 hrs (No reward)",
+        "reward": {
+            "$numberLong": "60"
+        },
+        "isValid": true,
+        "userId": {
+            "$oid": "67becbbe2a118861d481d9cf"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67bef7bb86eebc85bfc75da6"
+        },
+        "date": "2025-02-20",
+        "zkProof": "Proof: Sleep duration < 6 hrs (No reward)",
+        "reward": {
+            "$numberLong": "90"
+        },
+        "isValid": true,
+        "userId": {
+            "$oid": "67becbbe2a118861d481d9cf"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67bef7bb86eebc85bfc75ea8"
+        },
+        "date": "2025-02-21",
+        "zkProof": "Proof: Sleep duration < 6 hrs (No reward)",
+        "reward": {
+            "$numberLong": "45"
+        },
+        "isValid": true,
+        "userId": {
+            "$oid": "67becbbe2a118861d481d9cf"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67bef7bb86eebc85bfc75ae7"
+        },
+        "date": "2025-02-22",
+        "zkProof": "Proof: Sleep duration < 6 hrs (No reward)",
+        "reward": {
+            "$numberLong": "25"
+        },
+        "isValid": true,
+        "userId": {
+            "$oid": "67becbbe2a118861d481d9cf"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "67bef7bb86eebc85bfc75aa5"
+        },
+        "date": "2025-02-23",
+        "zkProof": "Proof: Sleep duration < 6 hrs (No reward)",
+        "reward": {
+            "$numberLong": "65"
+        },
+        "isValid": true,
+        "userId": {
+            "$oid": "67becbbe2a118861d481d9cf"
+        }
+    }
+]

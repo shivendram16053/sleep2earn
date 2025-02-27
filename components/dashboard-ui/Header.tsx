@@ -2,6 +2,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { Wallet2 } from "lucide-react";
 
 declare global {
     interface Window {
@@ -84,13 +85,19 @@ export function Header({ userid }: HeaderProps) {
     };
 
     return (
-        <div className="border-b border-white/10 bg-gray-900/50 backdrop-blur-md">
-            <div className="flex items-center justify-between p-4">
-                <p className="font-bold text-xl text-white/90">Hello {userid}</p>
+        <div className="border-b border-white/10  backdrop-blur-md">
+            <div className="flex items-center justify-between px-4 md:px-12 py-6">
+                <div className="flex items-center gap-4">
+                    <Avatar>
+                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <p className="font-bold text-xl text-white/90">Hello {userid}</p>
+                </div>
                 <div className="flex items-center gap-4">
                     {isConnected ? (
                         <div className="flex items-center gap-3">
-                            <p className="text-white/80 text-sm">
+                            <p className="text-white/80 text-sm hidden md:block">
                                 {account?.slice(0, 6)}...{account?.slice(-4)}
                             </p>
                             <Button
@@ -110,10 +117,11 @@ export function Header({ userid }: HeaderProps) {
                             </Button>
                         </div>
                     )}
-                    <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
+                    <div>
+                        <Wallet2 className="h-6 w-6 text-white/70" />
+                    </div>
+
+
                 </div>
             </div>
         </div>

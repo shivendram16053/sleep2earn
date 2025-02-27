@@ -76,14 +76,14 @@ const Dashboard = () => {
             try {
                 const response = await axios.get(`/api/getInfo?userId=${userId}`);
                 setData(response.data);
-                localStorage.setItem("fitbitID",data?.fitbitId)
+                localStorage.setItem("fitbitID", data?.fitbitId)
                 console.log(response.data);
             } catch (error) {
                 console.error("Error fetching user data:", error);
             } finally {
                 setTimeout(() => {
                     setLoading(false);
-                }, 3000);
+                }, 2000);
             }
         };
 
@@ -101,18 +101,19 @@ const Dashboard = () => {
     return (
         <div className="min-h-screen flex flex-col lg:flex-row">
             <Sidebar />
-            <main className=" flex flex-col pb-20 lg:pb-0 w-full">
+            <main className="flex flex-col pb-20 lg:pb-0 w-full">
 
                 <Header userid={data?.fitbitId} />
 
 
                 <div className="p-4 space-y-4 flex-1 overflow-auto   mx-auto w-full   lg:p-6 lg:space-y-6">
                     <WelcomeBanner />
-                    <ReferralCard />
+
                     <div className="text-3xl font-semibold text-gray-100  px-4">Earnings</div>
                     <div className="flex flex-col lg:flex-row gap-4 ">
                         <EarningsSection todayrewards={todayReward} totalrewards={totalReward} />
                         <ConnectionStatus />
+                        <ReferralCard />
                     </div>
                     <div className=" lg:block">
                         <EarningsChart userInfo={data} />

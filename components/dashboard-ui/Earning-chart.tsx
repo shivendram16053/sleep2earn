@@ -20,7 +20,7 @@ export function EarningsChart({ userInfo }: { userInfo: UserInfo }) {
             setTimeout(() => {
                 const sleepData = userInfo.sleepData || [];
                 console.log("Sleep Data", sleepData);
-                const latestDate = sleepData.length > 0 ? dayjs(sleepData[sleepData.length - 1].date, "YYYY-MM-DD") : dayjs();
+                const latestDate = dayjs();
                 const startDate = latestDate.subtract(12, "day");
 
                 const dateRange = Array.from({ length: 13 }, (_, i) => {
