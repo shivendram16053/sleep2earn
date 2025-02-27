@@ -19,9 +19,14 @@ const Rewards = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [stakingHistory, setStakingHistory] = useState<any[]>([]);
+  const [fitbitID, setFitbitID] = useState<string>();
 
   useEffect(() => {
     const fetchTotalRewards = async () => {
+      const fitbitID=localStorage.getItem("fitbitID");
+
+      if(!fitbitID) throw new Error("No ID found")
+      setFitbitID(fitbitID);
       setLoading(true);
       setErrorMessage(null);
 
@@ -195,7 +200,7 @@ const Rewards = () => {
     <div className="min-h-screen flex flex-col lg:flex-row  text-white">
       <Sidebar />
       <main className="flex flex-col w-full px-6 py-6 lg:px-12">
-        <Header />
+        <Header userid={fitbitID || ""} />
         <MobileNav />
 
         <div className="flex flex-col lg:flex-row gap-6 mt-6">

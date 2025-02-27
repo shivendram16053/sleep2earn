@@ -66,7 +66,7 @@ export async function GET(req: NextRequest) {
         await updateTotalReward(user.id, reward);
 
         console.log(`✅ Processed user ${user.fitbitId}: ${reward} tokens`);
-      } catch (error) {
+      } catch (error:any) {
         console.error(
           `❌ Error processing user ${user.fitbitId}:`,
           error.message
@@ -79,7 +79,7 @@ export async function GET(req: NextRequest) {
       success: true,
       message: "Sleep data processed!",
     });
-  } catch (error) {
+  } catch (error:any) {
     console.error("❌ Processing Failed:", error.message);
     return NextResponse.json(
       { success: false, error: error.message },

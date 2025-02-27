@@ -43,6 +43,7 @@
     "@types/node": "^20.17.19",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "node-loader": "^2.1.0",
     "postcss": "^8",
     "prisma": "^6.4.1",
     "tailwindcss": "^3.4.1",

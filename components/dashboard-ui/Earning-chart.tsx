@@ -7,7 +7,11 @@ import { Button } from "@/components/ui/button";
 import dayjs from "dayjs";
 import { Loader } from "lucide-react";
 
-export function EarningsChart({ userInfo }) {
+interface UserInfo {
+    sleepData?: { date: string; reward: number }[];
+}
+
+export function EarningsChart({ userInfo }: { userInfo: UserInfo }) {
     const [chartData, setChartData] = useState<{ date: string; value: number }[]>([]);
     const [loading, setLoading] = useState(true);
 

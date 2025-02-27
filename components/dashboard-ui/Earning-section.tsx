@@ -1,7 +1,12 @@
 import { DollarSign } from "lucide-react"
 
 
-export function EarningsSection({ totalrewards, todayrewards }) {
+interface EarningsSectionProps {
+    totalrewards: number;
+    todayrewards: number;
+}
+
+export function EarningsSection({ totalrewards, todayrewards }: EarningsSectionProps) {
     return (
         <div className="bg-black/20 backdrop-blur-sm rounded-[20px] border border-white/10 py-6 px-6">
             <div className="flex md:flex-row flex-col h-full gap-6 items-center justify-center">

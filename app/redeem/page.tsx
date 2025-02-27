@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Sidebar } from "@/components/dashboard-ui/Sidebar";
 import { Header } from "@/components/dashboard-ui/Header";
@@ -38,6 +38,14 @@ const Redeem = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [fitbitID, setFitbitID] = useState<string>();
+
+  useEffect(() => {
+    const fitbitID = localStorage.getItem("fitbitID");
+
+    if (!fitbitID) throw new Error("No ID found");
+    setFitbitID(fitbitID);
+  });
 
   const handleRedeem = async () => {
     setErrorMessage(null);
@@ -115,7 +123,7 @@ const Redeem = () => {
     <div className="min-h-screen flex flex-col lg:flex-row bg-gray-900 text-white">
       <Sidebar />
       <main className="flex flex-col w-full px-6 py-6 lg:px-12">
-        <Header />
+        <Header userid={fitbitID||""} />
         <MobileNav />
 
         <div className="flex flex-col gap-6 mt-6">

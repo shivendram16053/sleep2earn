@@ -33,9 +33,9 @@ const Dashboard = () => {
                 userId = urlParams.get("user_id") || userId;
 
                 if (accessToken && refreshToken && userId) {
-                    localStorage.setItem("access_token", accessToken);
-                    localStorage.setItem("refresh_token", refreshToken);
-                    localStorage.setItem("user_id", userId);
+                    localStorage.setItem("access_token", accessToken as string);
+                    localStorage.setItem("refresh_token", refreshToken as string);
+                    localStorage.setItem("user_id", userId as string);
                 } else {
                     console.error("Missing tokens in URL.");
                     setLoading(false);
@@ -59,8 +59,10 @@ const Dashboard = () => {
 
                     accessToken = response.data.access_token;
                     refreshToken = response.data.refresh_token; // Update refresh token as well
-                    localStorage.setItem("access_token", accessToken);
-                    localStorage.setItem("refresh_token", refreshToken);
+                    localStorage.setItem("access_token", accessToken as string);
+                    if (refreshToken) {
+                        localStorage.setItem("refresh_token", refreshToken);
+                    }
 
                     console.log("Token refreshed successfully.");
                 } catch (error) {
@@ -74,6 +76,7 @@ const Dashboard = () => {
             try {
                 const response = await axios.get(`/api/getInfo?userId=${userId}`);
                 setData(response.data);
+                localStorage.setItem("fitbitID",data?.fitbitId)
                 console.log(response.data);
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -88,7 +91,7 @@ const Dashboard = () => {
     }, []);
 
     const todayDate = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
-    const todayReward = data?.sleepData?.find((entry) => entry.date === todayDate)?.reward || 0;
+    const todayReward = data?.sleepData?.find((entry: { date: string; }) => entry.date === todayDate)?.reward || 0;
     const totalReward = data?.totalRewards?.[0]?.totalReward || 0; // Get totalReward from the first entry
 
     if (loading) return <div className="flex items-center justify-center h-screen w-2/5 mx-auto ">
