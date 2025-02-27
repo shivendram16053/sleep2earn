@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
 
       const response = NextResponse.redirect(
         new URL(
-          `http://localhost:3000/dashboard?access_token=${access_token}&refresh_token=${refresh_token}&user_id=${user_id}`
+          `https://sleep2earn.vercel.app/dashboard?access_token=${access_token}&refresh_token=${refresh_token}&user_id=${user_id}`
         )
       );
 
