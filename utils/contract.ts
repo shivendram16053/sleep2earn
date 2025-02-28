@@ -9,6 +9,7 @@ export async function getContract() {
     return null;
   }
   
+  
 
   const provider = new ethers.BrowserProvider(window.ethereum);
   const signer = await provider.getSigner();
