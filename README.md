@@ -1,5 +1,5 @@
-# Sleep2Earn
-![Sleep2Earn](/public/logo.png)
+# <img src="/public/logo.png" width="30" alt="Sleep2Earn logo"> Sleep2Earn
+
 
 
 <div align="center">
