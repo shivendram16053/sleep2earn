@@ -16,7 +16,7 @@ model User {
   refreshToken  String
   sleepData     Sleep[]
   createdAt     DateTime @default(now())
-  totalRewards  Int ?
+  totalRewards  Int?
 }
 
 model Sleep {
