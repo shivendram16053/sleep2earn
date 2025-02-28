@@ -32,43 +32,52 @@ const Redeem = () => {
   const handleRedeem = async () => {
     setErrorMessage(null);
     setSuccessMessage(null);
-
+  
     if (!selectedVoucher) {
       setErrorMessage("No voucher selected.");
       return;
     }
-
+  
     if (!email || !email.includes("@")) {
       setErrorMessage("Enter a valid email address.");
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
       const contract = await getContract();
       if (!contract) {
         setErrorMessage("Contract not found.");
         return;
       }
-
+  
       const userAddress = localStorage.getItem("address");
       if (!userAddress) {
         setErrorMessage("Please connect your wallet.");
         return;
       }
-
+  
       // Calculate the fee
       const amount = ethers.parseEther(selectedVoucher.sleepAmount);
       const feeAmount = (amount * BigInt(10)) / BigInt(100); // 10% fee
       const minFee = ethers.parseEther("0.01"); // Minimum fee of 0.01 ETH
-
+  
       const finalFee = feeAmount < minFee ? minFee : feeAmount;
-
+  
+      // Check balance
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const balance = await provider.getBalance(userAddress);
+      if (balance < finalFee) {
+        setErrorMessage("Insufficient balance to cover the transaction fee.");
+        return;
+      }
+  
+  
       // Send the transaction
       const tx = await contract.redeemTokens(amount, { value: finalFee });
       await tx.wait();
-
+  
       // Send email to backend (optional)
       const emailResponse = await fetch("/api/sendEmail", {
         method: "POST",
@@ -81,11 +90,11 @@ const Redeem = () => {
           sleepAmount: selectedVoucher.sleepAmount,
         }),
       });
-
+  
       if (!emailResponse.ok) {
         throw new Error("Failed to send email.");
       }
-
+  
       setSuccessMessage(
         `Successfully redeemed ${selectedVoucher.sleepAmount} SLEEP for a ${selectedVoucher.value} voucher.`
       );
@@ -100,7 +109,6 @@ const Redeem = () => {
       setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen flex flex-col lg:flex-row  text-white">
       <Sidebar />
