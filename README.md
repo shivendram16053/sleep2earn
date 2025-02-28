@@ -1,7 +1,11 @@
 # Sleep2Earn
 
 
-[![Sleep2Earn](https://img.youtube.com/vi/wT-9Bira1IA/0.jpg)](https://www.youtube.com/watch?v=wT-9Bira1IA)
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=0pwT-9RyeJM">
+    <img src="https://img.youtube.com/vi/0pwT-9RyeJM/maxresdefault.jpg" width="100%" alt="Sleep2Earn Demo">
+  </a>
+</div>
 
 ## 🌙 Overview
 
