@@ -93,7 +93,7 @@ export function Sidebar() {
                 <div className="px-4 py-8">
                     <button className="flex items-center w-full gap-2 px-3 py-2 text-white rounded-lg">
                         <LogOut className="h-8 w-8" />
-                        <span className="text-lg font-medium">Log Out</span>
+                        <span className="text-lg font-medium"  >Log Out</span>
                     </button>
                 </div>
             </div>

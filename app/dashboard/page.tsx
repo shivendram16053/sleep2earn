@@ -92,7 +92,7 @@ const Dashboard = () => {
 
     const todayDate = new Date().toISOString().split("T")[0]; // Format: YYYY-MM-DD
     const todayReward = data?.sleepData?.find((entry: { date: string; }) => entry.date === todayDate)?.reward || 0;
-    const totalReward = data?.totalRewards?.[0]?.totalReward || 0; // Get totalReward from the first entry
+    const totalReward = data?.totalRewards || 0; // Get totalReward from the first entry
 
     if (loading) return <div className="flex items-center justify-center h-screen w-2/5 mx-auto ">
         <Loader />

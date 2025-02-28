@@ -44,7 +44,8 @@ const Rewards = () => {
         const response = await axios.get(
           `/api/getTotalRewards?accessToken=${accessToken}`
         );
-        setTotalRewards(response.data.totalReward);
+        setTotalRewards(response.data.totalRewards);
+        console.log(response.data);
       } catch (error) {
         alert("Error fetching total rewards.");
       } finally {
@@ -97,7 +98,7 @@ const Rewards = () => {
       const response = await axios.get(
         `/api/updateTotalRewards?accessToken=${accessToken}`
       );
-      setTotalRewards(response.data.totalReward);
+      setTotalRewards(response.data.totalRewards);
     } catch (error: any) {
       if (error.data && error.data.message) {
         alert(error.data.message); // Extract error message from contract

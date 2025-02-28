@@ -66,7 +66,7 @@ export async function GET(req: NextRequest) {
         await updateTotalReward(user.id, reward);
 
         console.log(`✅ Processed user ${user.fitbitId}: ${reward} tokens`);
-      } catch (error:any) {
+      } catch (error: any) {
         console.error(
           `❌ Error processing user ${user.fitbitId}:`,
           error.message
@@ -79,7 +79,7 @@ export async function GET(req: NextRequest) {
       success: true,
       message: "Sleep data processed!",
     });
-  } catch (error:any) {
+  } catch (error: any) {
     console.error("❌ Processing Failed:", error.message);
     return NextResponse.json(
       { success: false, error: error.message },
@@ -90,19 +90,24 @@ export async function GET(req: NextRequest) {
 
 // 🔹 Function to Update Total Rewards
 async function updateTotalReward(userId: string, reward: number) {
-  const totalRewardEntry = await prisma.totalReward.findUnique({
+  const user = await prisma.user.findUnique({
     where: { id: userId },
   });
 
-  if (totalRewardEntry) {
-    await prisma.totalReward.update({
-      where: { id: userId },
-      data: { totalReward: totalRewardEntry.totalReward + reward },
-    });
+  if (user) {
+    if (reward === 0) {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { totalRewards: 0 },
+      });
+    } else {
+      await prisma.user.update({
+        where: { id: userId },
+        data: { totalRewards: { increment: reward } },
+      });
+    }
   } else {
-    await prisma.totalReward.create({
-      data: { userId, totalReward: reward },
-    });
+    console.error(`❌ User with ID ${userId} not found.`);
   }
 }
 

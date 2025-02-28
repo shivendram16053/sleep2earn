@@ -4,19 +4,19 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = "mongodb+srv://sleep2earn:sleeptoearn%402025@c1-sleep2earn.gtamw.mongodb.net/sleep2earn?retryWrites=true&w=majority&appName=c1-sleep2earn"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  email         String? @unique
-  walletAddress String? @unique
+  email         String? 
+  walletAddress String? 
   fitbitId      String  @unique
   accessToken   String
   refreshToken  String
   sleepData     Sleep[]
   createdAt     DateTime @default(now())
-  totalRewards  TotalReward[]
+  totalRewards  Int ?
 }
 
 model Sleep {
@@ -29,12 +29,12 @@ model Sleep {
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model TotalReward {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  totalReward Int
-  userId      String   @db.ObjectId
-  user        User     @relation(fields: [userId], references: [id])
-}
+// model TotalReward {
+//   id         String   @id @default(auto()) @map("_id") @db.ObjectId
+//   totalReward Int
+//   userId      String   @db.ObjectId
+//   user        User     @relation(fields: [userId], references: [id])
+// }
 
 // model sleep {
 //   id            String    @id @default(auto()) @map("_id") @db.ObjectId

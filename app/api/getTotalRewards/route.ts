@@ -24,12 +24,12 @@ export async function GET(req: NextRequest) {
         }
 
         // Find total rewards using userId
-        const totalRewards = await prisma.totalReward.findFirst({
-            where: { userId: user.id },
-            select: { totalReward: true },
+        const totalRewards = await prisma.user.findFirst({
+            where: { id: user.id },
+            select: { totalRewards: true },
         });
 
-        return NextResponse.json({ totalReward: totalRewards?.totalReward ?? 0 }, { status: 200 });
+        return NextResponse.json({ totalRewards: totalRewards?.totalRewards ?? 0 }, { status: 200 });
 
     } catch (error) {
         console.error("Error fetching total rewards:", error);
