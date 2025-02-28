@@ -20,7 +20,7 @@ const Redeem = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [fitbitID, setFitbitID] = useState<string>();
+  const [fitbitID, setFitbitID] = useState<string>("Hello");
 
   useEffect(() => {
     const fitbitID = localStorage.getItem("user_id");

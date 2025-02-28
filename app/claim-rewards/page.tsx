@@ -21,7 +21,7 @@ const Rewards = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [stakingHistory, setStakingHistory] = useState<any[]>([]);
-  const [fitbitID, setFitbitID] = useState<string>();
+  const [fitbitID, setFitbitID] = useState<string>("Sloth");
 
 
   useEffect(() => {

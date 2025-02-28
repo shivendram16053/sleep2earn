@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sleep2Earn
 
-## Getting Started
+## 🌙 Overview
 
-First, run the development server:
+Sleep2Earn is an innovative blockchain-based application that addresses the growing epidemic of sleep deprivation in our fast-paced world. By transforming healthy sleep habits into tangible rewards, we're revolutionizing how people prioritize rest and recovery.
+
+Poor sleep quality and insufficient rest have become alarming public health concerns, negatively impacting:
+- Daily productivity and cognitive performance
+- Long-term mental health and emotional wellbeing
+- Physical health outcomes and immune function
+- Overall quality of life
+
+Sleep2Earn creates a positive feedback loop by rewarding users with cryptocurrency tokens for achieving their personalized sleep goals. What sets us apart is our commitment to data privacy - all sleep verification is handled through secure zkTLS protocols, ensuring users maintain complete ownership of their sensitive health information while still benefiting from the reward system.
+
+## ✨ Features
+
+- **Goal Setting**: Define personalized sleep targets based on duration, consistency, and quality
+- **Secure Verification**: Zero-knowledge proofs verify sleep metrics without exposing raw data
+- **Token Rewards**: Earn tokens for successful sleep goal completion
+- **Progress Tracking**: Monitor sleep improvement over time with detailed analytics
+- **Community Challenges**: Participate in group sleep improvement initiatives
+
+## 🔧 Prerequisites
+
+Currently, Sleep2Earn only supports integration with **Google Fitbit** devices for sleep tracking. Additional device support coming soon!
+
+Visit our website for compatibility information and setup guides: [Sleep2Earn.io](https://sleep2earn.io)
+
+## 🚀 Getting Started
+
+Follow these steps to set up the project locally:
 
 ```bash
+# Clone the repository
+git clone https://github.com/shivendram16053/sleep2earn.git
+
+# Navigate to project directory
+cd sleep2earn
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔐 Environment Configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For testing purposes, you'll need access to our development environment variables. Please contact us via email at dev@sleep2earn.io to request the necessary `.env` file with testing credentials.
 
-## Learn More
+## 📝 Contributing
 
-To learn more about Next.js, take a look at the following resources:
+We welcome contributions to Sleep2Earn! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📞 Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For support, partnership inquiries, or more information:
+- Email: info@sleep2earn.io
+- Twitter: [@Sleep2Earn](https://twitter.com/sleep2earn)
+- Discord: [Sleep2Earn Community](https://discord.gg/sleep2earn)
 
-## Deploy on Vercel
+## ⚖️ License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Sleep2Earn is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
