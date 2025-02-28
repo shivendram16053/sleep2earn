@@ -8,6 +8,7 @@ export async function getContract() {
     alert("Please install MetaMask!");
     return null;
   }
+  
 
   const provider = new ethers.BrowserProvider(window.ethereum);
   const signer = await provider.getSigner();
