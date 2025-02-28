@@ -2,8 +2,8 @@
 
 
 <div align="center">
-  <a href="https://www.youtube.com/watch?v=0pwT-9RyeJM">
-    <img src="https://img.youtube.com/vi/0pwT-9RyeJM/maxresdefault.jpg" width="100%" alt="Sleep2Earn Demo">
+  <a href="https://www.youtube.com/watch?v=wT-9Bira1IA">
+    <img src="https://img.youtube.com/vi/wT-9Bira1IA/maxresdefault.jpg" width="100%" alt="Sleep2Earn Demo">
   </a>
 </div>
 
