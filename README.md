@@ -24,7 +24,7 @@ Sleep2Earn creates a positive feedback loop by rewarding users with cryptocurren
 
 Currently, Sleep2Earn only supports integration with **Google Fitbit** devices for sleep tracking. Additional device support coming soon!
 
-Visit our website for compatibility information and setup guides: [Sleep2Earn.io](https://sleep2earn.io)
+Visit our website for compatibility information and setup guides: [Sleep2Earn.io](https://sleep2earn.vercel.app/) 
 
 ## 🚀 Getting Started
 
