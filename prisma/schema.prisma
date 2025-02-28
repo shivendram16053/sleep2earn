@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = "mongodb+srv://sleep2earn:sleeptoearn%402025@c1-sleep2earn.gtamw.mongodb.net/sleep2earn?retryWrites=true&w=majority&appName=c1-sleep2earn"
 }
 
 model User {

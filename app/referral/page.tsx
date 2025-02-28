@@ -4,6 +4,7 @@ import { Sidebar } from '@/components/dashboard-ui/Sidebar'
 import React, { useEffect, useState } from 'react'
 import { SparklesText } from '@/components/magicui/sparkles-text'
 import { Header } from '@/components/dashboard-ui/Header'
+import { MobileNav } from '@/components/dashboard-ui/MobieNav'
 
 export default function page() {
     const [userid, setUserid] = useState('')
@@ -15,6 +16,7 @@ export default function page() {
     return (
         <div className='min-h-screen flex flex-col lg:flex-row text-white'>
             <Sidebar />
+            <MobileNav />
             <div className='flex flex-col pb-20 lg:pb-0 w-full'>
                 <Header userid={userid} />
                 <div className='flex flex-1 justify-center items-center'>
