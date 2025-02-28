@@ -18,6 +18,11 @@ export function Sidebar() {
     const [isOpen, setIsOpen] = useState(false)
     const pathname = usePathname()
 
+    const handleLogout = () => {
+        localStorage.clear()
+        window.location.href = "/"
+    }
+
     return (
         <>
             <div className="hidden fixed top-0 left-0 right-0 z-20 bg-background border-b px-4 py-3  justify-between items-center">
@@ -91,9 +96,9 @@ export function Sidebar() {
                     </div>
                 </div>
                 <div className="px-4 py-8">
-                    <button className="flex items-center w-full gap-2 px-3 py-2 text-white rounded-lg">
+                    <button className="flex items-center w-full gap-2 px-3 py-2 text-white rounded-lg hover:text-purple-400" onClick={handleLogout}>
                         <LogOut className="h-8 w-8" />
-                        <span className="text-lg font-medium"  >Log Out</span>
+                        <span className="text-lg font-medium">Log Out</span>
                     </button>
                 </div>
             </div>
