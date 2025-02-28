@@ -50,17 +50,66 @@ The application will be available at `http://localhost:3000`
 
 For testing purposes, you'll need access to our development environment variables. Please contact us via email at dev@sleep2earn.io to request the necessary `.env` file with testing credentials.
 
-## 📝 Contributing
+# Smart Contract and Rewards Instructions
 
-We welcome contributions to Sleep2Earn! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines.
+## 📝 Overview
 
-## 📞 Contact
+The Sleep2Earn Token (SLEEP) is an ERC-20 token built on the Ethereum blockchain that powers the Sleep2Earn ecosystem. SLEEP tokens serve as the primary reward mechanism for users who achieve their sleep goals while enabling a sustainable economic model through staking, rewards, and redemption features.
 
-For support, partnership inquiries, or more information:
-- Email: info@sleep2earn.io
-- Twitter: [@Sleep2Earn](https://twitter.com/sleep2earn)
-- Discord: [Sleep2Earn Community](https://discord.gg/sleep2earn)
+## 🔑 Key Features
 
-## ⚖️ License
+### Staking Mechanism
 
-Sleep2Earn is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Users can lock their SLEEP tokens for predetermined periods to earn rewards:
+
+| Staking Period | Reward Rate |
+|----------------|-------------|
+| 30 days        | 5%          |
+| 90 days        | 15%         |
+| 180 days       | 35%         |
+
+During the staking period, tokens are locked and cannot be transferred or used for other purposes.
+
+### Reward System
+
+- **Claim Rewards**: Upon completion of the staking period, users can claim both their initially staked tokens and the earned rewards.
+- **Automatic Calculation**: Rewards are automatically calculated based on the staking period and amount.
+
+### Early Unstaking
+
+Users have the flexibility to unstake their tokens before the completion of their chosen period, subject to the following penalty structure:
+
+| Unstaking Timeframe | Penalty Rate |
+|---------------------|--------------|
+| Before 30 days      | 30%          |
+| Before 90 days      | 20%          |
+| Before 180 days     | 10%          |
+| After 180 days      | No penalty   |
+
+### Token Redemption
+
+- Users can burn SLEEP tokens through our redemption mechanism
+- A redemption fee of 10% of the token amount (or minimum 0.01 ETH) is required
+- Fees are paid in ETH
+
+
+## 💡 User Guidelines
+
+- **Maximize Rewards**: For optimal returns, stake tokens for longer periods to earn up to 35% rewards.
+- **Plan Carefully**: Consider your financial needs before staking, as early unstaking will result in penalties.
+- **ETH Requirements**: Ensure you maintain sufficient ETH in your wallet for redemption fees and gas costs.
+- **Transparency**: All transactions are recorded on the Ethereum blockchain, providing complete transparency and auditability.
+
+## 🔧 Technical Implementation
+
+The SLEEP token smart contract is implemented according to best security practices and has undergone thorough auditing. The contract includes:
+
+- Standard ERC-20 functions
+- Custom staking and reward mechanisms
+- Secure penalty enforcement
+- Transparent history tracking
+
+
+## 📜 Legal Disclaimer
+
+The SLEEP token is a utility token designed for use within the Sleep2Earn ecosystem. It is not designed as an investment vehicle and does not represent any equity in Sleep2Earn or affiliated entities. Users should consult with financial and legal advisors before participating in the token economy.
