@@ -56,7 +56,7 @@ The application will be available at `http://localhost:3000`
 
 ## 🔐 Environment Configuration
 
-For testing purposes, you'll need access to our development environment variables. Please contact us via email at dev@sleep2earn.io to request the necessary `.env` file with testing credentials.
+For testing purposes, you'll need access to our development environment variables. Please contact us via email at shivendramishra.sm93@gmail.com to request the necessary `.env` file with testing credentials.
 
 # Smart Contract and Rewards Instructions
 
